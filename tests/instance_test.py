@@ -12,11 +12,17 @@ class TestParser(unittest.TestCase):
         self.instance_data = load_fixture('instance:simple')
         self.returned_instance = self.parser.feed(self.instance_data)
 
+    def tearDown(self):
+        del self.parser
+
     def test_feed_with_an_invalid_input(self):
         self.assertFalse(self.parser.feed([]))
 
     def test_feed_with_valid_input(self):
         self.assertIsInstance(self.returned_instance, HRSSInstance)
+
+    def test_feed_parses_the_jobs_number(self):
+        self.assertEqual(self.returned_instance.jobs_number, 10)
 
     def test_feed_parses_the_initialization_time(self):
         self.assertEqual(self.returned_instance.initialization_time, 1)
@@ -25,13 +31,16 @@ class TestParser(unittest.TestCase):
         self.assertEqual(self.returned_instance.machines_number, 2)
 
     def test_feed_parses_the_setup_times_list(self):
-        expected = ['7', '7', '10', '12', '14', '33', '23', '29', '7', '20']
+        expected = [7, 7, 10, 12, 14, 33, 23, 29, 7, 20]
         self.assertEqual(self.returned_instance.setup_times, expected)
 
 
 class TestInstance(unittest.TestCase):
     def setUp(self):
         self.hrss = HRSSInstance()
+
+    def test_jobs_number_defaults_to_zero(self):
+        self.assertEqual(self.hrss.jobs_number, 0)
 
     def test_initialization_time_defaults_to_zero(self):
         self.assertEqual(self.hrss.initialization_time, 0)

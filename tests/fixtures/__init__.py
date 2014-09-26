@@ -6,8 +6,7 @@ __all__ = ('load_fixture')
 
 FIXTURES = {
 
-'instance:simple': """
-Number of jobs: 10  Number of machines: 2
+'instance:simple': """Number of jobs: 10  Number of machines: 2
 
 Initialization time: 1
 
