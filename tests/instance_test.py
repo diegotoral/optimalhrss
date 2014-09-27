@@ -20,7 +20,7 @@ class TestParser(unittest.TestCase):
         self.assertFalse(self.parser.feed([]))
 
     def test_feed_with_valid_input(self):
-        self.assertTrue(len(self.instances) > 0)
+        self.assertEqual(len(self.instances), 2)
 
     def test_feed_parses_the_jobs_number(self):
         self.assertEqual(self.first_instance.jobs_number, 10)
@@ -34,6 +34,11 @@ class TestParser(unittest.TestCase):
     def test_feed_parses_the_setup_times_list(self):
         expected = [7, 7, 10, 12, 14, 33, 23, 29, 7, 20]
         self.assertEqual(self.first_instance.setup_times, expected)
+
+    def test_feed_parses_the_processing_times_list(self):
+        expected = [196, 137, 185, 131, 183, 151, 182, 160, 156, 151]
+        self.assertEqual(self.first_instance.processing_times, expected)
+
 
 
 class TestInstanceHRSS(unittest.TestCase):
