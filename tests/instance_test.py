@@ -10,7 +10,8 @@ class TestParser(unittest.TestCase):
     def setUp(self):
         self.parser = Parser()
         self.instance_data = load_fixture('instance:simple')
-        self.returned_instance = self.parser.feed(self.instance_data)
+        self.instances = self.parser.feed(self.instance_data)
+        self.first_instance = self.instances[0]
 
     def tearDown(self):
         del self.parser
@@ -19,23 +20,23 @@ class TestParser(unittest.TestCase):
         self.assertFalse(self.parser.feed([]))
 
     def test_feed_with_valid_input(self):
-        self.assertIsInstance(self.returned_instance, HRSSInstance)
+        self.assertTrue(len(self.instances) > 0)
 
     def test_feed_parses_the_jobs_number(self):
-        self.assertEqual(self.returned_instance.jobs_number, 10)
+        self.assertEqual(self.first_instance.jobs_number, 10)
 
     def test_feed_parses_the_initialization_time(self):
-        self.assertEqual(self.returned_instance.initialization_time, 1)
+        self.assertEqual(self.first_instance.initialization_time, 1)
 
     def test_feed_parses_the_machines_number(self):
-        self.assertEqual(self.returned_instance.machines_number, 2)
+        self.assertEqual(self.first_instance.machines_number, 2)
 
     def test_feed_parses_the_setup_times_list(self):
         expected = [7, 7, 10, 12, 14, 33, 23, 29, 7, 20]
-        self.assertEqual(self.returned_instance.setup_times, expected)
+        self.assertEqual(self.first_instance.setup_times, expected)
 
 
-class TestInstance(unittest.TestCase):
+class TestInstanceHRSS(unittest.TestCase):
     def setUp(self):
         self.hrss = HRSSInstance()
 
