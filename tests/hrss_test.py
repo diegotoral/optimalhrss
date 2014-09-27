@@ -20,7 +20,26 @@ class TestJob(unittest.TestCase):
 
 
 class TestMachine(unittest.TestCase):
+    def setUp(self):
+        self.job = Job(1, 1)
+        self.name = 'MachineGun'
+        self.machine = Machine(self.name)
+        self.machine.configure_job(self.job)
+
     def test_has_a_name(self):
-        name = 'MachineGun'
-        machine = Machine(name)
-        self.assertEqual(machine.name, name)
+        self.assertEqual(self.machine.name, self.name)
+
+    def test_cup_time_defaults_to_zero(self):
+        self.assertEqual(self.machine.cpu_time, 0)
+
+    def test_inicialization_updates_cpu_time(self):
+        self.machine.initialize()
+        self.assertEqual(self.machine.cpu_time, self.job.initialization_time)
+
+    def test_setup_updates_cpu_time(self):
+        self.machine.setup()
+        self.assertEqual(self.machine.cpu_time, self.job.setup_time)
+
+    def test_process_updates_cpu_time(self):
+        self.machine.process()
+        self.assertEqual(self.machine.cpu_time, 1)

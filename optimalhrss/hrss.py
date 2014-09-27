@@ -9,4 +9,16 @@ class Job(object):
 
 class Machine(object):
     def __init__(self, name):
-        self.name = name
+        self.name, self.cpu_time, self.job = name, 0, None
+
+    def configure_job(self, job):
+        self.job = job
+
+    def initialize(self):
+        self.cpu_time += self.job.initialization_time
+
+    def setup(self):
+        self.cpu_time += self.job.setup_time
+
+    def process(self):
+        self.cpu_time += self.job.processing_time
