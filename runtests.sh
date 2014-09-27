@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-clear;nosetests
+clear;nosetests --with-coverage
