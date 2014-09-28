@@ -3,7 +3,22 @@
 import unittest
 
 from fixtures import load_fixture
-from optimalhrss.instance import Parser, HRSSInstance
+from optimalhrss.instance import Parser, HRSSInstance, invalid_elements
+
+
+class TestInvalidCharacters(unittest.TestCase):
+    def test_filter_out_empty_strings(self):
+        self.assertFalse(invalid_elements(''))
+
+    def test_filter_new_lines(self):
+        self.assertFalse(invalid_elements('\n'))
+
+    def test_filter_lines(self):
+        line = ('-' * 79) + '\r\n'
+        self.assertFalse(invalid_elements(line))
+
+    def test_filter_rn(self):
+        self.assertFalse(invalid_elements('\r\n'))
 
 
 class TestParser(unittest.TestCase):
