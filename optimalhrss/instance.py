@@ -12,9 +12,6 @@ def invalid_elements(l):
     """
     match = re.match(ur'(\n|\r|-*(\r\n|\r|\n))', l)
     return l != '' and match == None
-    # l = l.rstrip('\r\n')
-    # hr = ('-' * 79) + '\r\n'
-    # return l != '' and l != hr and l != '\r\n' and l != '\n'
 
 
 class Parser:
