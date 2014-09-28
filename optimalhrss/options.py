@@ -14,4 +14,4 @@ class Options(object):
         return self.parser.parse_args(argv)
 
     def _add_arguments(self, parser):
-        parser.add_argument('file')
+        parser.add_argument('file', help='file with instances to load')
